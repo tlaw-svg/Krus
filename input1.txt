@@ -1,0 +1,10 @@
+Olin,Burwell,650
+Olin,Science_Center,730
+Olin,Library,1150 
+Olin,Main,700 
+Burwell,Main,700
+Burwell,Science_Center,320 
+Burwell,Library,1000
+Science_Center,Library,830 
+Science_Center,Main,450 
+Main,Library,470 
