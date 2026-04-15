@@ -1,8 +1,7 @@
 from functools import cmp_to_key
 import time
 
-def my_function():
-    time.sleep(1.2) # Simulate work
+
 
 locations = {}
 
@@ -67,10 +66,9 @@ def Kruskals_mst():
 
     return MST_cost, MST_edges
 
-start = time.perf_counter()
-my_function()
+start_time = time.perf_counter()
 MST_cost, MST_edges = Kruskals_mst()
-end = time.perf_counter()
+end_time = time.perf_counter()
 
 
 print("MST Costs:", MST_cost)
@@ -78,4 +76,5 @@ print("Edges in MST:")
 for x,y,z in MST_edges:
     print(f"{id_to_name[x]} <-----> {id_to_name[y]} weight: {z}")
 
-print(f"Elapsed time: {end - start:.4f} seconds")
+
+print(f"Execution Time: {end_time - start_time:.4f} seconds")
