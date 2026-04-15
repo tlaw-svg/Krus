@@ -1,12 +1,16 @@
 from functools import cmp_to_key
-from enum import Enum
+import time
 
-class buildings(Enum):
-    Olin = 0
-    Burwell = 1
-    Science_Center = 2
-    Main = 3
-    Library = 4
+def my_function():
+    time.sleep(1.2) # Simulate work
+
+locations = {}
+
+
+def location_id(name):
+    if name not in locations:
+        locations[name] = len(locations)
+    return locations[name]
 
 
 def reachable(start, target, graph, visited):
@@ -17,7 +21,7 @@ def reachable(start, target, graph, visited):
     for neighbor in graph[start]:
         if not visited[neighbor]:
             if reachable(neighbor, target, graph, visited):
-                return True
+                return True 
     return False
 
 def compare(a, b):
@@ -25,18 +29,19 @@ def compare(a, b):
 
 
 edges = []
-with open("input.txt", "r") as myfile:
+with open("input1.txt", "r") as myfile:
     for line in myfile:
         line = line.strip()
         if not line:
             continue
         src, dst, w = line.split(",")
-        u = buildings[src].value
-        v = buildings[dst].value
+        u = location_id(src)
+        v = location_id(dst)
         w = int(w)
         edges.append([u, v, w])
 
-V = len(buildings)
+V = len(locations)
+id_to_name = {i: name for name, i in locations.items()}
 
 edges = sorted(edges, key=cmp_to_key(compare))
 
@@ -62,10 +67,15 @@ def Kruskals_mst():
 
     return MST_cost, MST_edges
 
+start = time.perf_counter()
+my_function()
+MST_cost, MST_edges = Kruskals_mst()
+end = time.perf_counter()
 
-MST_cost, MST_edges  = Kruskals_mst()
 
 print("MST Costs:", MST_cost)
 print("Edges in MST:")
 for x,y,z in MST_edges:
-    print(f"{buildings(x).name} <-----> {buildings(y).name}   weight: {z}")
+    print(f"{id_to_name[x]} <-----> {id_to_name[y]} weight: {z}")
+
+print(f"Elapsed time: {end - start:.4f} seconds")
